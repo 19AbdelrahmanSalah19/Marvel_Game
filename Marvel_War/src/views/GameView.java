@@ -22,7 +22,6 @@ public class GameView extends JFrame implements KeyListener {
 	    private JButton[][] viewGrid;
 	    private JScrollPane scrollBar2;
 	    private GameViewListener listener ;
-	   // private JPanel winningPanel;
 	    private JTextArea winnerTextArea;
 	    
 	    
@@ -68,9 +67,7 @@ public class GameView extends JFrame implements KeyListener {
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.setTitle("Marvel Game");
 		this.getContentPane().setBackground(Color.BLACK);
-		//this.setResizable(false);
 		
-		//first background
 		firstBackground = new ImageIcon("marvelStartBackground.JPEG");
 	    Image marvelImg = firstBackground.getImage();
 	    this.setIconImage(marvelImg);
@@ -90,7 +87,7 @@ public class GameView extends JFrame implements KeyListener {
 	    
 	    this.addKeyListener(this);
 	    
-	    //this.add(tutorial);
+	   
 	    
 	    mainView = new JPanel();
 	    mainView.setVisible(false);
@@ -102,13 +99,13 @@ public class GameView extends JFrame implements KeyListener {
 	    rightDetails.setEditable(false);
 	    rightDetails.setFocusable(false);
 	    viewGrid = new JButton[5][5];
-	    //this.add(mainView) ;
 	    
 	    
 	    
 	    
 	    
-	    //this.pack();
+	    
+	  
 	    this.revalidate();
 	    this.repaint();
 	}
@@ -178,9 +175,6 @@ public class GameView extends JFrame implements KeyListener {
 			mainView.setVisible(false) ;
 			leftDetails.setVisible(false);
 			rightDetails.setVisible(false);
-		    //winningPanel = new JPanel();
-		   // winningPanel.setVisible(true);
-		   // winningPanel.setFocusable(false);
 		    winnerTextArea = new JTextArea();
 		    winnerTextArea.setVisible(true);
 		    winnerTextArea.setFocusable(false);
@@ -208,8 +202,6 @@ public class GameView extends JFrame implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODOt Auto-generated method stub
-		//System.out.println("I reached GameView");
 		if(listener != null ) {
 			listener.onPressed(e); 
 		}
@@ -218,140 +210,14 @@ public class GameView extends JFrame implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		//System.out.println("I'm now here!!!!!!!");
-		/*if(listener != null ) {
-			listener.onPressed(e); 
-		}*/
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		//System.out.println("I'm now here!!!!!!!!!!!!!!!!!!!!");
-		/*if(listener != null ) {
-			listener.onPressed(e); 
-		}*/
+		
 	}
-	
 		
-	/*public static void main(String[] args) {
-		new GameView();
-	}
-
-
-	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("START !")) {
-			JOptionPane.showInputDialog(null,"please enter your name");
-		}
-		
-	}*/
-	
-	
-	
-	
-	
-	/*public class quizView  extends JFrame implements ActionListener{
-		private JPanel mainView;
-		private JButton Upleft;
-		private JButton Upright;
-		private JButton Downleft;
-		private JButton Downright;
-		//private JTextArea Text;
-		private Game model;
-	public quizView()  {
-		        this.setTitle("quiz");
-				this.setDefaultCloseOperation(3);
-				this.setBounds(0,0,1500,3000);
-				this.setVisible(true);
-				this.setLayout(new BorderLayout());
-				
-				mainView = new JPanel();
-				//mainView.setPreferredSize(new Dimension(1100,3000));
-			    mainView.setLayout(new GridLayout(2,2));
-			    this.add(mainView, BorderLayout.CENTER);
-			    
-			    //Text = new JTextArea();
-			    //Text.setPreferredSize(new Dimension(400,3000));
-			    //Text.setText("Hello World");
-			    //this.add(Text, BorderLayout.EAST);
-			    
-			    Player k = new Player("Ahmed");
-			    Player b = new Player("Ali");
-			    model = new Game(k,b);
-			    try {
-					Game.loadAbilities("Abilities.csv");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			    System.out.print(model.getAvailableAbilities().size());
-				int r = (int) (Math.random()*(model.getAvailableAbilities().size()));
-			    Ability a= model.getAvailableAbilities().get(r);
-			    String abilityName = a.getName();			    
-			    Upleft = new JButton(abilityName);
-			    mainView.add(Upleft);
-			    
-			    if(a instanceof CrowdControlAbility) 
-			        Upright = new JButton("CrowdControl");
-			    if(a instanceof DamagingAbility) 
-			        Upright = new JButton("Damaging");
-			    if(a instanceof HealingAbility) 
-			        Upright = new JButton("Healing");
-			    mainView.add(Upright);
-			    
-			    
-			    Downleft = new JButton(""+r);
-			    mainView.add(Downleft);
-			    
-			    Downright = new JButton("Next");
-			    //Downright.setActionCommand("next");
-			    Downright.addActionListener(this);
-			    mainView.add(Downright);
-			    			    
-				this.revalidate();
-				this.repaint();
-		    }
-	    public void actionPerformed(ActionEvent e)  {	
-	    	JButton b = (JButton) e.getSource();
-	    	if(b==Downright){
-	    	        updateview();    		
-	    	}
-	    	//if(e.getActionCommand()=="next") {
-	    		//updateview();
-	    	//}
-	    }
-	    
-	    public void updateview() {
-	    	int r = (int) (Math.random()*(model.getAvailableAbilities().size()));
-		    Ability a= model.getAvailableAbilities().get(r);
-		    String abilityName = a.getName();			    
-		    Upleft.setText(abilityName);
-		   	    
-		    if(a instanceof CrowdControlAbility) 
-		        Upright.setText("CrowdControl");
-		    if(a instanceof DamagingAbility) 
-		        Upright.setText("Damaging");
-		    if(a instanceof HealingAbility) 
-		        Upright.setText("Healing");
-		    	    
-		    Downleft.setText(""+r);
-		   
-		    //Text.setText(" "+r);
-		 	    
-			this.revalidate();
-			this.repaint();
-	    	
-	    	
-	    }
-	 			
-		
-		
-		
-		
-		public static void main(String[] args) throws IOException {
-			new quizView();
-			
-		}
-}*/
-	
 	
 }

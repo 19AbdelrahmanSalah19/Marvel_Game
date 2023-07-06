@@ -77,10 +77,6 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 		return comboBox;
 	}
 	
-	/*private ArrayList<Ability> controllerAvailableAbilities ;
-	private ArrayList<Champion> controllerAvailableChampions ;*/
-	
-	
 	
 	public PriorityQueue getAlreadyPlayedChampionsPQ() {
 		return alreadyPlayedChampionsPQ;
@@ -137,8 +133,7 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 		checkCanPressKey = false ;
 		view.setListener(this);
 		alreadyPlayedChampionsPQ = new PriorityQueue(6) ;
-		
-		
+			
 		//this.addKeyListener(this);
 	}
 	public void loadImages() {
@@ -203,7 +198,6 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 					}
 					else {
 						if(cur instanceof Champion) {
-							//System.out.println("I'm here");
 							b.setActionCommand("ChampionGrid");
 							int index = model.getAvailableChampions().indexOf((Champion)cur) ;
 							String imgStr = getImageStrings().get(index) ;
@@ -258,74 +252,7 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 			view.getWinnerTextArea().setFont(new Font("MV Boli",Font.ITALIC,50));
 		}
 	}
-	/*public void updateViewGrid() {
-		Object [][] gameBoard = model.getBoard() ; 
-		JButton [][] viewBoard = view.getViewGrid() ;
-		for(int i=0 ; i<5 ; i++) {
-			for(int j=0 ; j<5 ; j++) {
-				Object cur = gameBoard[i][j] ;
-				JButton b = viewBoard[i][j] ;
-				if(cur == null) {
-					b.setActionCommand("emptyCell");
-					//b.set
-				}
-				else {
-					if(cur instanceof Cover) {
-						b.setActionCommand("CoverGrid");
-						ImageIcon imIc = new ImageIcon("Cover.png");
-						Image img = imIc.getImage() ;
-						Image modiefiedPic = img.getScaledInstance(100, 100, 1);
-						imIc = new ImageIcon(modiefiedPic) ;
-						b.setIcon(imIc);
-						b.setText("currentHP= " + ((Cover)cur).getCurrentHP()) ;
-						b.setVerticalTextPosition(b.BOTTOM);
-						b.setHorizontalTextPosition(b.CENTER);
-						b.setIconTextGap(10);
-					}
-					else {
-						if(cur instanceof Champion) {
-							//System.out.println("I'm here");
-							b.setActionCommand("ChampionGrid");
-							int index = model.getAvailableChampions().indexOf((Champion)cur) ;
-							String imgStr = getImageStrings().get(index) ;
-							ImageIcon imIc = new ImageIcon(imgStr);
-							Image img = imIc.getImage() ;
-							Image modiefiedPic = img.getScaledInstance(100, 100, 1);
-							imIc = new ImageIcon(modiefiedPic) ;
-							b.setIcon(imIc);
-							String text = "<html>"+((Champion)cur).getName() + "<br>";
-							text+= "CurrentHp = " +((Champion)cur).getCurrentHP()+"</html>" ;
-							b.setText(text) ;
-							b.setFont(new Font("Arial",Font.CENTER_BASELINE,10));
-							b.setVerticalTextPosition(b.BOTTOM);
-							b.setHorizontalTextPosition(b.CENTER);
-							b.setIconTextGap(10);
-							Border bo ;
-							if(model.getFirstPlayer().getTeam().contains(cur)) {
-								bo = BorderFactory.createLineBorder(Color.BLUE, 3) ;
-							}
-							else {
-								bo = BorderFactory.createLineBorder(Color.RED, 3) ;
-							}
-							b.setBorder(bo);
-							if(cur.equals(model.getCurrentChampion())) {
-								b.setBackground(Color.GREEN);
-							}
-						}
-					}
-				}
-				viewBoard[4-i][j] = b ;
-				b.addActionListener(this);
-				b.setFocusable(false);
-			}
-		}
-		for(int i=0 ; i<5 ; i++) {
-			for(int j=0 ; j<5 ; j++) {
-				view.getMainView().add(viewBoard[i][j]) ;
-			}
-		}
-		view.add(view.getMainView()) ;
-	}*/
+	
 	public void updateLeftArea () {
 		String res = "";
 		res += "Player1 : " + model.getFirstPlayer().getName()+'\n' ;
@@ -372,7 +299,6 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 		}
 		
 		view.getLeftDetails().setText(res);
-		//view.add(view.getLeftDetails()) ;
 		
 	}
 	public void updateRightArea () {
@@ -420,17 +346,10 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 	}
 	public void actionPerformed(ActionEvent e)  {
 		switch(e.getActionCommand()){
-			//String name = "";
-			//JOptionPane enterFirstName = new JOptionPane() ;
-			//enterFirstName.showInputDialog("please enter first player name");
-			//Player p1 = new Player(  (String) enterFirstName.getInputValue());
 			case "start":String name1 = JOptionPane.showInputDialog( "please enter first player name","Player 1");
 						 this.modelPlayer1 = new Player(name1);
-						 //System.out.println(p1.getName());
 						 String name2 = JOptionPane.showInputDialog("please enter second player name","Player 2" );
 						 this.modelPlayer2 = new Player(name2);
-						 //System.out.println(p2.getName());
-						 //model = new Game(p1,p2) ;
 						 loadSelectingChampionsMessages() ;
 						 try {
 							 Game.initializeAvailableChAb() ;
@@ -443,8 +362,6 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 						 ArrayList<JButton> chToBeSelected = view.getChToBeSelected() ;
 						 for(int i = 0;i<Game.getAvailableChampions().size();i++) {
 							 JButton b = new JButton();
-							 //b.setFocusable(false);
-							 //b.setSize(100, 100);
 							 b.setFont(new Font("Arial",Font.PLAIN,10));
 							 b.setMargin(new Insets(0,0,0,0));
 							 b.setText(Game.getAvailableChampions().get(i).toString());
@@ -459,7 +376,6 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 							 b.setVerticalTextPosition(b.CENTER);
 							 b.setIconTextGap(10);
 							 
-							 //b.setIconTextGap(10);
 							 b.setActionCommand(Game.getAvailableChampions().get(i).getName());
 							 b.setFocusable(false);
 							 chToBeSelected.add(b);
@@ -469,7 +385,7 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 						 view.getSelectingChampions().setVisible(true);
 						 view.add(view.getSelectingChampions());
 						 JOptionPane.showMessageDialog(null, getSelectingChampions().get(0));
-						 //view.addKeyListener(view);
+			
 						 view.revalidate();
 						 view.repaint();
 						 
@@ -538,34 +454,15 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 				}
 				view.getPlayersSelectedChampions().setText( res );
 				setCntSelectedChampions(getCntSelectedChampions() +1);
-				//JScrollPane scroller = view.getScrollBar2();
-				//scroller = new JScrollPane(view.getPlayersSelectedChampions(),JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-				//view.add(scroller);
-				//view.getPlayersSelectedChampions().setLineWrap(true);
 				if( getCntSelectedChampions()<=5) {
 					JOptionPane.showMessageDialog(null, getSelectingChampions().get(getCntSelectedChampions()));
 				}
 				else {
-					this.model = new Game ( this.getModelPlayer1(), this.getModelPlayer2()) ;
-					
-					/*try {
-						this.model.loadAbilities("Abilities.csv");
-						this.model.loadChampions("Champions.csv");
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(null, "Sorry, there is a technical issue");
-						
-					}*/
-					
+					this.model = new Game ( this.getModelPlayer1(), this.getModelPlayer2()) ;				
 					view.getSelectingChampions().setVisible(false);
 					view.getPlayersSelectedChampions().setVisible(false);
 					view.prepareTutorial();
-					view.getContinue1().addActionListener(this);
-					//view.getTutorial().setVisible(true);
-					/*view.add(view.getTutorial() ) ;
-					view.getTutorial().repaint();
-					view.getTutorial().revalidate();*/
-					
+					view.getContinue1().addActionListener(this);										
 					
 				}
 				break ;
@@ -577,16 +474,14 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 				view.add(view.getRightDetails(), BorderLayout.EAST) ;
 				view.getLeftDetails().setVisible(true);
 				view.getRightDetails().setVisible(true);
-				
-				//view.addKeyListener(view) ;
+							
 				
 				updateLeftArea () ;
 				updateRightArea();
 				view.revalidate();
 				view.repaint();
 				setCheckCanPressKey(true) ;
-				
-				//System.out.println(view.getKeyListeners());
+								
 				break ;
 				
 			case "ChampionGrid":
@@ -708,110 +603,20 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 	}
 	
 	
-	/*public ArrayList<Ability> getControllerAvailableAbilities() {
-		return controllerAvailableAbilities;
-	}
-	public ArrayList<Champion> getControllerAvailableChampions() {
-		return controllerAvailableChampions;
-	}*/
 	public static void main(String[] args) /*throws InterruptedException*/ {
 	
-		Controller c = new Controller();
-		//ArrayList<Integer> arr = new ArrayList<>() ;
-		//System.out.println(arr.indexOf(5));
-		//Thread.sleep(6000);
-		//c.display();
-		//ArrayList<Champion> test = new ArrayList<>();
-	
+		Controller c = new Controller();	
 	}
 	@Override
 	public void adjustmentValueChanged(AdjustmentEvent e) {
 		// TODO Auto-generated method stub
 		view.repaint();
 	}
-	/*@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if(isCheckCanPressKey()) {
-			switch(e.getKeyChar()) {
-			case 'w': 
-				System.out.println("reached here");
-				try {
-					model.move(Direction.DOWN);
-					updateViewGrid() ;
-					updateLeftArea() ;
-					updateRightArea() ;
-				}
-				catch(NotEnoughResourcesException e1) {
-					JOptionPane.showMessageDialog(null, "Sorry, There is no enough resources");
-				}
-				catch(UnallowedMovementException e2) {
-					JOptionPane.showMessageDialog(null, "Sorry, It's an unallowed movement");
-				}
-				break ;
-			case 's': 
-				try {
-					model.move(Direction.UP);
-					updateViewGrid() ;
-					updateLeftArea() ;
-					updateRightArea() ;
-				}
-				catch(NotEnoughResourcesException e1) {
-					JOptionPane.showMessageDialog(null, "Sorry, There is no enough resources");
-				}
-				catch(UnallowedMovementException e2) {
-					JOptionPane.showMessageDialog(null, "Sorry, It's an unallowed movement");
-				}
-				break ;
-			case 'a': 
-				try {
-					model.move(Direction.LEFT);
-					updateViewGrid() ;
-					updateLeftArea() ;
-					updateRightArea() ;
-				}
-				catch(NotEnoughResourcesException e1) {
-					JOptionPane.showMessageDialog(null, "Sorry, There is no enough resources");
-				}
-				catch(UnallowedMovementException e2) {
-					JOptionPane.showMessageDialog(null, "Sorry, It's an unallowed movement");
-				}
-				break ;
-			case 'd': 
-				try {
-					model.move(Direction.RIGHT);
-					updateViewGrid() ;
-					updateLeftArea() ;
-					updateRightArea() ;
-				}
-				catch(NotEnoughResourcesException e1) {
-					JOptionPane.showMessageDialog(null, "Sorry, There is no enough resources");
-				}
-				catch(UnallowedMovementException e2) {
-					JOptionPane.showMessageDialog(null, "Sorry, It's an unallowed movement");
-				}
-				break ;
-		}
-		}
-		
-		
-	}
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}*/
+	
 	@Override
 	public void onPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		//System.out.println("I reached controller");
 		if(isCheckCanPressKey()) {
-			//System.out.println("I can do some change");
 			switch(e.getKeyChar()) {
 			case 'w': 
 				System.out.println("reached here");
@@ -883,18 +688,6 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 				updateViewGrid() ;
 				updateLeftArea() ;
 				updateRightArea() ;
-				/*String res = view.getLeftDetails().getText() ;
-				ArrayList<Champion> temp = new ArrayList<>();
-				while(!alreadyPlayedChampionsPQ.isEmpty()) {
-					Champion c =(Champion) alreadyPlayedChampionsPQ.remove();
-					temp.add(c);
-					res += c.getName() + "->" +'\n' ;
-				}
-				
-				for(int i = 0 ;i<temp.size();i++) {
-					alreadyPlayedChampionsPQ.insert(temp.get(i));
-				}
-				view.getLeftDetails().setText(res);*/
 				break ;
 			
 			case 'i' :
@@ -1088,145 +881,9 @@ public class Controller  implements ActionListener,AdjustmentListener, GameViewL
 				}
 				
 			}
-			/*switch(e.getKeyCode()) {
-				case KeyEvent.VK_UP :
-					System.out.println("You pressed up");
-					try {
-						model.attack(Direction.UP);
-						updateViewGrid() ;
-						updateLeftArea() ;
-						updateRightArea() ;
-					}
-					catch(NotEnoughResourcesException e1){
-						JOptionPane.showMessageDialog(null, "Sorry, There is no enough resources");
-					}
-					catch(ChampionDisarmedException e2) {
-						JOptionPane.showMessageDialog(null, "Sorry, Your Champion is disarmed");
-					}
-					catch( InvalidTargetException e3) {
-						JOptionPane.showMessageDialog(null, e3.getMessage());
-					}
-					break;
-			}*/
 			
-			
-			
-			/*
-			    //private JPanel nextView;
-				private JPanel mainView;
-				private JButton upButton;
-				private Champion champ1;
-				private JButton middleButton;
-				private Champion champ2;
-				private JButton downButton;
-				private Champion champ3;
-				private Game model;
-			public quizView()  {
-				        this.setTitle("quiz");
-						this.setDefaultCloseOperation(3);
-						this.setBounds(0,0,1500,3000);
-						this.setVisible(true);
-						this.setLayout(new BorderLayout());
-						
-						Player k = new Player("Ahmed");
-					    Player b = new Player("Ali");
-					    model = new Game(k,b);
-					    
-					    try {
-							Game.loadChampions("Champions.csv");
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						
-					    
-						mainView = new JPanel();
-						mainView.setLayout(new GridLayout(3,0));
-						this.add(mainView);
-						
-						int r1 = (int) (Math.random()*(model.getAvailableChampions().size()));			    
-					    champ1 = model.getAvailableChampions().get(r1);
-					    String name1 = champ1.getName() + "\n" + "        "+ champ1.getCurrentHP();
-					    upButton = new JButton(name1);
-					    mainView.add(upButton);
-					    upButton.addActionListener(this);
-					    
-					    int r2 = (int) (Math.random()*(model.getAvailableChampions().size()));			    
-					    champ2 = model.getAvailableChampions().get(r2);
-					    String name2 = champ2.getName() + "\n" + "   " + champ2.getCurrentHP();
-					    middleButton = new JButton(name2);
-					    mainView.add(middleButton);
-					    middleButton.addActionListener(this);
-					    
-					    int r3 = (int) (Math.random()*(model.getAvailableChampions().size()));			    
-					    champ3 = model.getAvailableChampions().get(r3);
-					    String name3 = champ3.getName() + "\n" + "       " + champ3.getCurrentHP();
-					    downButton = new JButton(name3);
-					    mainView.add(downButton);
-					    downButton.addActionListener(this);
-					    
-					    champ1=(Champion) champ1.clone();
-			            champ2=(Champion) champ2.clone();
-			            champ3=(Champion) champ3.clone();
-					   	    
-					    this.revalidate();
-						this.repaint();
-			
-			
-			}
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JButton b = (JButton) e.getSource();
-		    	if(b==upButton){
-		    		        //mainView.setVisible(false);
-		    		       // nextView = new JPanel();
-		    		        //JTextArea t = new JTextArea();
-		    		        //t.setText("HI");
-		    		        //nextView.add(t);
-		    		        //this.add(nextView);
-		    	            if (champ1.getCurrentHP()==0) {
-		    	            	upButton.setEnabled(false);
-		    	            }
-		    	            else {
-		    	            	champ1.setCurrentHP(champ1.getCurrentHP()-500);
-		    	            	String res = champ1.getName() + "\n" + "        "+ champ1.getCurrentHP();
-		    	            	upButton.setText(res);
-		    	            
-		    	            }
-		    		
-		    	}
-		    	else if(b==middleButton){
-		    		if (champ2.getCurrentHP()==0) {
-		            	middleButton.setEnabled(false);
-		            }
-		            else {
-		            	champ2.setCurrentHP(champ2.getCurrentHP()-500);
-		            	String res = champ2.getName() + "\n" + "        "+ champ2.getCurrentHP();
-		            	middleButton.setText(res);
-		            
-		            }
-		    	}
-		    	else {
-		    		if (champ3.getCurrentHP()==0) {
-		            	downButton.setEnabled(false);
-		            }
-		            else {
-		            	champ3.setCurrentHP(champ3.getCurrentHP()-500);
-		            	String res = champ3.getName() + "\n" + "        "+ champ3.getCurrentHP();
-		            	downButton.setText(res);
-		            
-		            }
-		    		
-		    	}
-				
-			}
-			
-			
-			public static void main(String [] args) {
-				quizView q = new quizView();
-				
-			}*/
 			
 		}
 	}
 }
-//}
+

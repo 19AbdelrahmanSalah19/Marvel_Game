@@ -52,10 +52,7 @@ public class Game {
 
 	public Game(Player first, Player second) {
 		firstPlayer = first;
-
 		secondPlayer = second;
-		//availableChampions = new ArrayList<Champion>();
-		//availableAbilities = new ArrayList<Ability>();
 		board = new Object[BOARDWIDTH][BOARDHEIGHT];
 		turnOrder = new PriorityQueue(6);
 		placeChampions();
